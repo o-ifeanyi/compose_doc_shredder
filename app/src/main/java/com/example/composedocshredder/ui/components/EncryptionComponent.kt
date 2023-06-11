@@ -39,8 +39,7 @@ fun EncryptionComponent(modifier: Modifier, animation: State<Float>) {
      suspend fun startRandomGen() {
         while (isShredding) {
             val random = Random(System.currentTimeMillis())
-
-            val shuffledCode = generateRandomString(800)
+            val randomString = generateRandomString(500)
 
             val style = SpanStyle(
                 fontWeight = FontWeight.Bold,
@@ -53,19 +52,18 @@ fun EncryptionComponent(modifier: Modifier, animation: State<Float>) {
             encryptedText.value = buildAnnotatedString {
                 var start = 0
                 var end = random.nextInt(30)
-                while (end < shuffledCode.length) {
-                    shuffledCode.substring(start..end).let {
+                while (end < randomString.length) {
+                    randomString.substring(start..end).let {
                         withStyle(style) {
                             append(it)
                         }
                     }
-                    if (end == shuffledCode.lastIndex) break
+                    if (end == randomString.lastIndex) break
                     withStyle(style.copy(color = Color.White)) {
-                        append(shuffledCode[++end])
+                        append(randomString[++end])
                     }
                     start = end + 1
-                    end = min(start + random.nextInt(20), shuffledCode.lastIndex)
-
+                    end = min(start + random.nextInt(20), randomString.lastIndex)
                 }
             }
             delay(250)
@@ -77,7 +75,6 @@ fun EncryptionComponent(modifier: Modifier, animation: State<Float>) {
     }
 
     if (encryptedText.value.isNotEmpty()) {
-
         Box(
             modifier = modifier
                 .height(410.dp)

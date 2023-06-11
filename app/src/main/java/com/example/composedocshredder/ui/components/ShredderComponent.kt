@@ -1,5 +1,3 @@
-@file:JvmName("EncryptionComponentKt")
-
 package com.example.composedocshredder.ui.components
 
 import androidx.compose.foundation.Canvas
